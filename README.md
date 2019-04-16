@@ -1,1 +1,14 @@
 # sleeping-barber-problem
+void barber(void *arg)/*Barber Process*/
+{
+	while(time(NULL)<end_time || count>0)
+	{
+		sem_wait(&customers);/*P(customers)*/            
+		sem_wait(&mutex);/*P(mutex)*/
+		count--;
+		printf("Barber:cut hair,count is:%d.\n",count);
+		sem_post(&mutex);/*V(mutex)*/
+		sem_post(&barbers);/*V(barbers)*/
+		sleep(3);       
+	}
+}
